@@ -23,7 +23,7 @@ featGrp = folium.FeatureGroup(name = "My Map")
 for lat, lon, el in zip(lats, lons, elev):
     featGrp.add_child(folium.CircleMarker(location=[lat, lon], radius = 5,  fill_color=elevCol(el), color = 'black', fill = True, fill_opacity = 0.8, popup = str(el)+" m"))
 
-featGrp.add_child(folium.GeoJson(data=(open('world.json', 'r', encoding = 'utf-8-sig').read())))
+featGrp.add_child(folium.GeoJson(data=open('world.json', 'r', encoding = 'utf-8-sig').read(), style_function = lambda x: {'fillColor':'green' if x['properties']['POP2005'] < 10000000 else 'orange' if 10000000 <= x['properties']['POP2005'] < 20000000 else 'red'}))
 
 myMap.add_child(featGrp)
 
